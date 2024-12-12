@@ -33,24 +33,24 @@ export default function Light() {
       <spotLight
         // ref={spotLight1}
         castShadow
-        position={[4, 10, 8]}
+        position={[6, 15, 12]}
         angle={0.3}
         penumbra={0.5}
         intensity={2.1}
-        decay={0.3}
+        decay={0.2}
       >
         <perspectiveCamera
           // ref={spotLightShadowHelper1}
           attach="shadow-camera"
-          far={15}
-          near={5}
+          far={22}
+          near={14}
         />
       </spotLight>
       <spotLight
         // ref={spotLight2}
         castShadow
-        position={[-4, 8, 8]}
-        angle={0.2}
+        position={[-6, 12, 12]}
+        angle={0.3}
         penumbra={0.5}
         intensity={0.9}
         decay={0.2}
@@ -58,8 +58,8 @@ export default function Light() {
         <perspectiveCamera
           // ref={spotLightShadowHelper2}
           attach="shadow-camera"
-          far={15}
-          near={5}
+          far={20}
+          near={12}
         />
       </spotLight>
       <pointLight position={[-5, -5, -5]} />
