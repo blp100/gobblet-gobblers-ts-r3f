@@ -1,8 +1,9 @@
 import { useGLTF } from "@react-three/drei";
-import { useRef } from "react";
-import useStore from "../../store/store";
+import { useRef, useState } from "react";
+import useStore from "@/app/store/store";
 import { Mesh } from "three";
 import { GLTF } from "three/examples/jsm/Addons.js";
+import { useSpring, animated } from "@react-spring/three";
 
 type GobblerProps = {
   size: number;
@@ -26,11 +27,11 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
 
   const plane = ref.current ? ref.current.userData.plane : null;
 
-  // console.log(activePlayer.NAME, ref.current?.userData?.player);
+  const { positionY } = useSpring({ positionY: isActive ? 0.5 : 0 });
 
   return (
-    <group>
-      <mesh
+    <animated.group position-y={positionY}>
+      <animated.mesh
         ref={ref}
         castShadow
         receiveShadow
@@ -46,8 +47,8 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
         {...otherProps}
       >
         <meshStandardMaterial color={color} />
-      </mesh>
-    </group>
+      </animated.mesh>
+    </animated.group>
   );
 };
 
