@@ -23,11 +23,18 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
   const activePlayer = useStore((state) => state.activePlayer);
   const activeGobbler = useStore((state) => state.activeGobbler);
   const setActiveGobbler = useStore((state) => state.setActiveGobbler);
-  const isActive = (activeGobbler === ref.current && ref.current );
+  const isActive = activeGobbler === ref.current && ref.current;
 
-  const plane = ref.current ? ref.current.userData.plane : null;
+  const tile = ref.current ? ref.current.userData.plane : null;
 
   const { positionY } = useSpring({ positionY: isActive ? 0.5 : 0 });
+  const { tilePosition } = useSpring({
+    tilePosition: [
+      tile ? tile.position.x : x,
+      y,
+      tile ? tile.position.z : z,
+    ] as [number, number, number],
+  });
 
   return (
     <animated.group position-y={positionY}>
@@ -43,7 +50,7 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
             setActiveGobbler(e.object);
           }
         }}
-        position={position}
+        position={tilePosition}
         {...otherProps}
       >
         <meshStandardMaterial color={color} />
