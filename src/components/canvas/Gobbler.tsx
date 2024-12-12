@@ -1,6 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import { useRef, useState } from "react";
-import useStore from "@/app/store/store";
+import useStore from "@/store/store";
 import { Mesh } from "three";
 import { GLTF } from "three/examples/jsm/Addons.js";
 import { useSpring, animated } from "@react-spring/three";
