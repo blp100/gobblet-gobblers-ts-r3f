@@ -23,11 +23,11 @@ type Size = {
 export const SIZES: Record<string, Size> = {
   SMALL: {
     NAME: "SMALL",
-    VALUE: 0.3,
+    VALUE: 0.5,
   },
   MEDIUM: {
     NAME: "MEDIUM",
-    VALUE: 0.6,
+    VALUE: 0.75,
   },
   LARGE: {
     NAME: "LARGE",
