@@ -167,9 +167,7 @@ export function Firework({
             1,
             delta / duration
           );
-        } else {
-          fireworkMaterial.current.uniforms.uProgress.value = 0;
-        }
+        } 
       }
     }
   });
@@ -209,13 +207,6 @@ export function Firework({
   );
 }
 
-/**
- * TODO: Release Fireworks on different time
- * x delay 3 seconds, then release
- * - delay on 2 different time, then release;
- * - delay on diferent time
- */
-
 type FireworksProps = {
   count?: number;
 };
@@ -236,10 +227,10 @@ export function Fireworks({ count = 2 }: FireworksProps) {
     <>
       {[...Array(100)].map((value, index) => (
         <Firework
-          texture={textures[Math.floor(Math.random()*8)]}
+          texture={textures[Math.floor(Math.random() * 8)]}
           position={[0, 4, 0]}
           key={index}
-          delay={Math.random() * 10000}
+          delay={Math.random() * 5000}
         />
       ))}
     </>
