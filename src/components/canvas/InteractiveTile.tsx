@@ -21,8 +21,8 @@ export default function InterActiveTile ({
       }}
       {...otherProps}
     >
-      <planeGeometry args={[10, 10]} />
-      <meshStandardMaterial color={color} />
+      <planeGeometry args={[1, 1]} />
+      <meshBasicMaterial color={color} />
     </mesh>
   );
 };
