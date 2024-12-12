@@ -13,7 +13,7 @@ const WinnerText = (props: WinnerTextProps) => {
     <Center top position={[0, 2.5, 0]} rotation={[0, 0, 0]} {...otherProps}>
       <Text3D font="./fonts/Mansalva_Regular.json">
         {text}
-        <meshBasicMaterial color={color} />
+        <meshStandardMaterial color={color} />
       </Text3D>
     </Center>
   );
