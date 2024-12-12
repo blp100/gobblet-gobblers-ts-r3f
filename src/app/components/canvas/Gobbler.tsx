@@ -23,7 +23,7 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
   const activePlayer = useStore((state) => state.activePlayer);
   const activeGobbler = useStore((state) => state.activeGobbler);
   const setActiveGobbler = useStore((state) => state.setActiveGobbler);
-  const isActive = activeGobbler === ref.current;
+  const isActive = (activeGobbler === ref.current && ref.current );
 
   const plane = ref.current ? ref.current.userData.plane : null;
 
