@@ -36,13 +36,13 @@ export default function Experience() {
   // game rule
   useEffect(() => {
     if (activeGobbler && activePlane) {
-      const arr = board.get(activePlane.userData.key);
+      const arr = board.get(activePlane.userData.key) || [];
       const newBoard = new Map(board); // create a new board for React state
       let tempWinner = null;
-      if (arr && checkGobbler(arr, activeGobbler)) {
+      if (checkGobbler(arr, activeGobbler)) {
         if (activeGobbler.userData.plane) {
           const planeKey = activeGobbler.userData.plane.userData.key;
-          const tempArr = [...board.get(planeKey)];
+          const tempArr = [...board.get(planeKey)!];
           const prevIndex = tempArr.indexOf(activeGobbler);
           tempArr.splice(prevIndex, 1);
           newBoard.set(planeKey, tempArr); // remove previous gobbler
@@ -133,7 +133,7 @@ export default function Experience() {
     const p = [];
     for (let i = 1; i <= 3; i++) {
       for (let j = 1; j <= 3; j++) {
-        const pos = [(j - 2) * 10, 0.1, (i - 2) * 10];
+        const pos = [j - 2, 0.1, i - 2];
         p.push(
           <InterActiveTile
             key={"plane" + i + "" + j}
@@ -177,7 +177,7 @@ export default function Experience() {
 
       {/* <Fireworks /> */}
 
-      <WinnerText text="winner!" color={0x5f9df7} />
+      {/* <WinnerText text="winner!" color={0x5f9df7} /> */}
 
       {/* <mesh
         receiveShadow

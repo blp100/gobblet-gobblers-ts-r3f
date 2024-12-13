@@ -1,16 +1,7 @@
-import { BufferGeometry, Material, Mesh, NormalBufferAttributes, Object3DEventMap } from "three";
+import { BufferGeometry, Material, Mesh, NormalBufferAttributes, Object3D, Object3DEventMap } from "three";
 import { PLAYER_INFO } from "../constants";
 
-const checkWinner = (
-  board: Map<
-    string,
-    Mesh<
-      BufferGeometry<NormalBufferAttributes>,
-      Material | Material[],
-      Object3DEventMap
-    >[]
-  >
-) => {
+const checkWinner = (board: Map<string, Object3D<Object3DEventMap>[]>) => {
   const player1Name = PLAYER_INFO.PLAYER1.NAME;
   const player2Name = PLAYER_INFO.PLAYER2.NAME;
 
@@ -23,7 +14,7 @@ const checkWinner = (
       // add row gobblers into array to check
       let gobblers = board.get(i + "" + j);
       let playerName =
-        gobblers&& gobblers.length > 0
+        gobblers && gobblers.length > 0
           ? gobblers[gobblers.length - 1].userData.player
           : null;
       rowPlayers.push(playerName);

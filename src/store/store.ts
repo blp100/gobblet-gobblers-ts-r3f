@@ -10,8 +10,8 @@ for (let i = 1; i <= 3; i++) {
 }
 
 interface GameState {
-  board: Map<string, Array<Mesh>>;
-  setBoard: (board: Map<string, Array<Mesh>>) => void;
+  board: Map<string, Array<Object3D>>;
+  setBoard: (board: Map<string, Array<Object3D>>) => void;
   activePlayer: typeof PLAYER_INFO.PLAYER1 | null;
   setPlayer: (activePlayer: typeof PLAYER_INFO.PLAYER1 | null) => void;
   activeGobbler: Object3D | null;
