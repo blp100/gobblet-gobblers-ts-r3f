@@ -16,6 +16,8 @@ type GLTFResult = GLTF & {
   nodes: { cylinder: Mesh };
 };
 
+type tilePositionType = { tilePosition: [number, number, number] };
+
 const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
   const [x, y, z] = position;
   const ref = useRef<Mesh>(null);
@@ -23,17 +25,43 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
   const activePlayer = useStore((state) => state.activePlayer);
   const activeGobbler = useStore((state) => state.activeGobbler);
   const setActiveGobbler = useStore((state) => state.setActiveGobbler);
+  const activePlane = useStore((state) => state.activePlane);
+  const setActivePlane = useStore((state) => state.setActivePlane);
+
   const isActive = activeGobbler === ref.current && ref.current;
 
   const tile = ref.current ? ref.current.userData.plane : null;
 
-  const { positionY } = useSpring({ positionY: isActive ? 0.5 : 0 });
-  const { tilePosition } = useSpring({
-    tilePosition: [
-      tile ? tile.position.x : x,
-      y,
-      tile ? tile.position.z : z,
-    ] as [number, number, number],
+  const isActiveTile = activePlane === tile;
+
+  const { positionY } = useSpring({ positionY: isActive ? 1 : 0 });
+  const { tilePosition } = useSpring<tilePositionType>({
+    from: { tilePosition: [x, y, z] },
+    to: async (next) => {
+      await next({
+        tilePosition: [
+          tile ? tile.position.x : x,
+          isActiveTile ? y : y,
+          tile ? tile.position.z : z,
+        ],
+      });
+      await next({
+        tilePosition: [
+          tile ? tile.position.x : x,
+          y,
+          tile ? tile.position.z : z,
+        ],
+      });
+    },
+    onRest: (result) => {
+      // Animation completed, set active gobbler here
+      if (tile && isActive && isActiveTile) {
+        setActiveGobbler(null);
+        setActivePlane(null);
+        console.log(result);
+      }
+      // console.log(tile);
+    },
   });
 
   return (

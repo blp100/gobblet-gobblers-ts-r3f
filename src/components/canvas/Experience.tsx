@@ -66,8 +66,8 @@ export default function Experience() {
           );
         }
 
-        setActiveGobbler(null);
-        setActivePlane(null);
+        // setActiveGobbler(null);
+        // setActivePlane(null);
         setPlayer(
           activePlayer === PLAYER_INFO.PLAYER1
             ? PLAYER_INFO.PLAYER2
