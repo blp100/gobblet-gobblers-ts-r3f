@@ -21,6 +21,12 @@ interface GameState {
   setActivePlane: (activePlane: Object3D | null) => void;
   winner: typeof PLAYER_INFO.PLAYER1 | null;
   setWinner: (winner: typeof PLAYER_INFO.PLAYER1) => void;
+  phase: "ready" | "playing" | "animated" | "ended";
+  start: () => void;
+  gobblerMoving: () => void;
+  gobblerMoved: () => void;
+  restart: () => void;
+  end: () => void;
 }
 
 const useStore = create<GameState>((set, get) => ({
@@ -35,6 +41,64 @@ const useStore = create<GameState>((set, get) => ({
   setActivePlane: (activePlane) => set(() => ({ activePlane })),
   winner: null,
   setWinner: (winner) => set(() => ({ winner })),
+  /**
+   * Phases
+   */
+  phase: "ready",
+  start: () => {
+    set((state) => {
+      if (state.phase === "ready") {
+        return {
+          phase: "playing",
+          board: initialMap,
+          activeGobbler: null,
+          activePlane: null,
+          winner: null,
+        };
+      }
+      return {};
+    });
+  },
+  gobblerMoving: () => {
+    set((state) => {
+      if (state.phase === "playing") {
+        return { phase: "animated" };
+      }
+      return {};
+    });
+  },
+  gobblerMoved: () => {
+    set((state) => {
+      if (state.phase === "animated") {
+        return {
+          phase: "playing",
+          activeGobbler: null,
+          activePlane: null,
+          // activePlayer:
+          //   state.activePlayer === PLAYER_INFO.PLAYER1
+          //     ? PLAYER_INFO.PLAYER2
+          //     : PLAYER_INFO.PLAYER1,
+        };
+      }
+      return {};
+    });
+  },
+  restart: () => {
+    set((state) => {
+      if (state.phase === "playing" || state.phase === "ended") {
+        return { phase: "ready" };
+      }
+      return {};
+    });
+  },
+  end: () => {
+    set((state) => {
+      if (state.phase === "playing") {
+        return { phase: "ended" };
+      }
+      return {};
+    });
+  },
 }));
 
 export default useStore;
