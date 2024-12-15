@@ -26,7 +26,6 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
   const activeGobbler = useStore((state) => state.activeGobbler);
   const setActiveGobbler = useStore((state) => state.setActiveGobbler);
   const activePlane = useStore((state) => state.activePlane);
-  const setActivePlane = useStore((state) => state.setActivePlane);
   const phase = useStore((state) => state.phase);
   const nextStep = useStore((state) => state.nextStep);
 
@@ -57,7 +56,7 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
     },
     onRest: ({ finished }) => {
       // Animation completed, set active gobbler here
-      if (tile && isActive && isActiveTile && finished) {
+      if (isActive && isActiveTile && finished) {
         nextStep();
       }
       // console.log(tile);

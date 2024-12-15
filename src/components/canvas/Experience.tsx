@@ -35,8 +35,6 @@ export default function Experience() {
   const moveGobbler = useStore((state) => state.moveGobbler);
   const phase = useStore((state) => state.phase);
 
-  console.log(phase);
-
   // game rule
   useEffect(() => {
     if (activeGobbler && activePlane && phase === "playing") {
@@ -183,16 +181,6 @@ export default function Experience() {
       {/* <Fireworks /> */}
 
       {/* <WinnerText text="winner!" color={0x5f9df7} /> */}
-
-      {/* <mesh
-        receiveShadow
-        rotation-x={-Math.PI * 0.5}
-        scale={2}
-        position-y={0.1}
-      >
-        <planeGeometry args={[10, 10]} />
-        <meshStandardMaterial color={"darkorange"} />
-      </mesh> */}
     </>
   );
 }
