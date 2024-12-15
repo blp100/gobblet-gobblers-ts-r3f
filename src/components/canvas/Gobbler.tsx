@@ -28,11 +28,11 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
   const activePlane = useStore((state) => state.activePlane);
   const setActivePlane = useStore((state) => state.setActivePlane);
 
-  const isActive = activeGobbler === ref.current && ref.current;
+  const isActive = activeGobbler === ref.current && ref.current !== null;
 
   const tile = ref.current ? ref.current.userData.plane : null;
 
-  const isActiveTile = activePlane === tile;
+  const isActiveTile = activePlane === tile && activePlane !== null;
 
   const { positionY } = useSpring({ positionY: isActive ? 1 : 0 });
   const { tilePosition } = useSpring<tilePositionType>({
@@ -53,12 +53,11 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
         ],
       });
     },
-    onRest: (result) => {
+    onRest: ({ finished }) => {
       // Animation completed, set active gobbler here
-      if (tile && isActive && isActiveTile) {
+      if (tile && isActive && isActiveTile && finished) {
         setActiveGobbler(null);
         setActivePlane(null);
-        console.log(result);
       }
       // console.log(tile);
     },
@@ -74,7 +73,7 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
         scale={size}
         onClick={(e) => {
           e.stopPropagation();
-          if (e.object.userData.player === activePlayer?.NAME) {
+          if (e.object.userData.player === activePlayer?.NAME && !isActive && !isActiveTile) {
             setActiveGobbler(e.object);
           }
         }}
