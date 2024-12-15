@@ -23,8 +23,8 @@ interface GameState {
   setWinner: (winner: typeof PLAYER_INFO.PLAYER1) => void;
   phase: "ready" | "playing" | "animated" | "ended";
   start: () => void;
-  gobblerMoving: () => void;
-  gobblerMoved: () => void;
+  moveGobbler: () => void;
+  nextStep: () => void;
   restart: () => void;
   end: () => void;
 }
@@ -44,7 +44,7 @@ const useStore = create<GameState>((set, get) => ({
   /**
    * Phases
    */
-  phase: "ready",
+  phase: "playing",
   start: () => {
     set((state) => {
       if (state.phase === "ready") {
@@ -59,7 +59,7 @@ const useStore = create<GameState>((set, get) => ({
       return {};
     });
   },
-  gobblerMoving: () => {
+  moveGobbler: () => {
     set((state) => {
       if (state.phase === "playing") {
         return { phase: "animated" };
@@ -67,17 +67,17 @@ const useStore = create<GameState>((set, get) => ({
       return {};
     });
   },
-  gobblerMoved: () => {
+  nextStep: () => {
     set((state) => {
       if (state.phase === "animated") {
         return {
           phase: "playing",
           activeGobbler: null,
           activePlane: null,
-          // activePlayer:
-          //   state.activePlayer === PLAYER_INFO.PLAYER1
-          //     ? PLAYER_INFO.PLAYER2
-          //     : PLAYER_INFO.PLAYER1,
+          activePlayer:
+            state.activePlayer === PLAYER_INFO.PLAYER1
+              ? PLAYER_INFO.PLAYER2
+              : PLAYER_INFO.PLAYER1,
         };
       }
       return {};

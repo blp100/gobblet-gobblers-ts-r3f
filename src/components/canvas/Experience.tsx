@@ -32,10 +32,14 @@ export default function Experience() {
   const setBoard = useStore((state) => state.setBoard);
   const winner = useStore((state) => state.winner);
   const setWinner = useStore((state) => state.setWinner);
+  const moveGobbler = useStore((state) => state.moveGobbler);
+  const phase = useStore((state) => state.phase);
+
+  console.log(phase);
 
   // game rule
   useEffect(() => {
-    if (activeGobbler && activePlane) {
+    if (activeGobbler && activePlane && phase === "playing") {
       const arr = board.get(activePlane.userData.key) || [];
       const newBoard = new Map(board); // create a new board for React state
       let tempWinner = null;
@@ -68,11 +72,12 @@ export default function Experience() {
 
         // setActiveGobbler(null);
         // setActivePlane(null);
-        setPlayer(
-          activePlayer === PLAYER_INFO.PLAYER1
-            ? PLAYER_INFO.PLAYER2
-            : PLAYER_INFO.PLAYER1
-        );
+        // setPlayer(
+        //   activePlayer === PLAYER_INFO.PLAYER1
+        //     ? PLAYER_INFO.PLAYER2
+        //     : PLAYER_INFO.PLAYER1
+        // );
+        moveGobbler();
         if (tempWinner) {
           setPlayer(null);
         }

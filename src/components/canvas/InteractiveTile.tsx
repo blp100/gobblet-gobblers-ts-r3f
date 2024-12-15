@@ -11,13 +11,14 @@ export default function InterActiveTile ({
 }: InterActiveTileProps) {
   const setActivePlane = useStore((state) => state.setActivePlane);
   const activeGobbler = useStore((state) => state.activeGobbler);
+  const phase = useStore((state) => state.phase);
 
   return (
     <mesh
       rotation={[-Math.PI / 2, 0, 0]}
       onClick={(e) => {
         e.stopPropagation();
-        if (activeGobbler) setActivePlane(e.object);
+        if (activeGobbler && phase === "playing") setActivePlane(e.object);
       }}
       {...otherProps}
     >

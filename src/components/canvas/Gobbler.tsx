@@ -1,5 +1,5 @@
 import { useGLTF } from "@react-three/drei";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import useStore from "@/store/store";
 import { Mesh } from "three";
 import { GLTF } from "three/examples/jsm/Addons.js";
@@ -27,6 +27,8 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
   const setActiveGobbler = useStore((state) => state.setActiveGobbler);
   const activePlane = useStore((state) => state.activePlane);
   const setActivePlane = useStore((state) => state.setActivePlane);
+  const phase = useStore((state) => state.phase);
+  const nextStep = useStore((state) => state.nextStep);
 
   const isActive = activeGobbler === ref.current && ref.current !== null;
 
@@ -56,8 +58,7 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
     onRest: ({ finished }) => {
       // Animation completed, set active gobbler here
       if (tile && isActive && isActiveTile && finished) {
-        setActiveGobbler(null);
-        setActivePlane(null);
+        nextStep();
       }
       // console.log(tile);
     },
@@ -73,7 +74,7 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
         scale={size}
         onClick={(e) => {
           e.stopPropagation();
-          if (e.object.userData.player === activePlayer?.NAME && !isActive && !isActiveTile) {
+          if (e.object.userData.player === activePlayer?.NAME && phase === "playing") {
             setActiveGobbler(e.object);
           }
         }}
