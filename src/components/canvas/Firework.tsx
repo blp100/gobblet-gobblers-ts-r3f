@@ -208,10 +208,11 @@ export function Firework({
 }
 
 type FireworksProps = {
+  visible? : boolean;
   count?: number;
 };
 
-export function Fireworks({ count = 2 }: FireworksProps) {
+export function Fireworks({ visible = false, count = 2 }: FireworksProps) {
   const textures = useTexture([
     "./particles/1.png",
     "./particles/2.png",
@@ -225,7 +226,7 @@ export function Fireworks({ count = 2 }: FireworksProps) {
 
   return (
     <>
-      {[...Array(100)].map((value, index) => (
+      {visible && [...Array(100)].map((value, index) => (
         <Firework
           texture={textures[Math.floor(Math.random() * 8)]}
           position={[0, 4, 0]}

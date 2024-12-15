@@ -34,6 +34,7 @@ export default function Experience() {
   const setWinner = useStore((state) => state.setWinner);
   const moveGobbler = useStore((state) => state.moveGobbler);
   const phase = useStore((state) => state.phase);
+  const end = useStore((state) => state.end);
 
   // game rule
   useEffect(() => {
@@ -66,6 +67,7 @@ export default function Experience() {
               ? PLAYER_INFO.PLAYER1
               : PLAYER_INFO.PLAYER2
           );
+          end();
         }
 
         // setActiveGobbler(null);
@@ -163,7 +165,7 @@ export default function Experience() {
       <OrbitControls />
 
       <EffectComposer>
-        {/* <Bloom mipmapBlur intensity={1} luminanceThreshold={1.1} /> */}
+        <Bloom mipmapBlur intensity={1} luminanceThreshold={1.1} />
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       </EffectComposer>
 
@@ -178,9 +180,22 @@ export default function Experience() {
         rotationZ={Math.PI / 2}
       />
 
-      {/* <Fireworks /> */}
+      <WinnerText
+        key={PLAYER_INFO.PLAYER1.WINNER_NAME}
+        name={PLAYER_INFO.PLAYER1.WINNER_NAME}
+        color={PLAYER_INFO.PLAYER1.COLOR}
+        text={"winner!"}
+        visible={winner === PLAYER_INFO.PLAYER1}
+      />
+      <WinnerText
+        key={PLAYER_INFO.PLAYER2.WINNER_NAME}
+        name={PLAYER_INFO.PLAYER2.WINNER_NAME}
+        color={PLAYER_INFO.PLAYER2.COLOR}
+        text={"winner!"}
+        visible={winner === PLAYER_INFO.PLAYER2}
+      />
 
-      {/* <WinnerText text="winner!" color={0x5f9df7} /> */}
+      <Fireworks visible={!!winner}/>
     </>
   );
 }
