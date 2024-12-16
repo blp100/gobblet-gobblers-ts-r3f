@@ -3,7 +3,7 @@ type GroundProps = {
   [x: string]: any;
 };
 
-const Ground = ({ color, ...otherProps }: GroundProps) => {
+export default function Ground({ color, ...otherProps }: GroundProps) {
   return (
     <mesh
       receiveShadow
@@ -15,6 +15,4 @@ const Ground = ({ color, ...otherProps }: GroundProps) => {
       <meshStandardMaterial color={color} />
     </mesh>
   );
-};
-
-export default Ground;
+}

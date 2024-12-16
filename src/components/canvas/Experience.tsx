@@ -1,24 +1,24 @@
+import { useEffect } from "react";
 import { OrbitControls } from "@react-three/drei";
-import { Fireworks } from "./Firework";
-import { Perf } from "r3f-perf";
-import WinnerText from "./WinnerText";
-import IndicatorArrow from "./IndicatorArrow";
 import {
   Bloom,
   EffectComposer,
   ToneMapping,
 } from "@react-three/postprocessing";
+import useStore from "@/store/store";
+import { Fireworks } from "./Firework";
+import { Perf } from "r3f-perf";
+import WinnerText from "./WinnerText";
+import IndicatorArrow from "./IndicatorArrow";
 import { ToneMappingMode } from "postprocessing";
 import Gobblers from "./Gobblers";
-import { PLAYER_INFO, SIZES } from "@/constants";
 import Ground from "./Ground";
 import Grid from "./Grid";
 import Light from "./Light";
-import { useEffect } from "react";
-import useStore from "@/store/store";
+import InteractiveTiles from "./InteractiveTiles";
+import { PLAYER_INFO } from "@/constants";
 import checkGobbler from "@/lib/check-gobbler";
 import checkWinner from "@/lib/check-winner";
-import InteractiveTiles from "./InteractiveTiles";
 
 export default function Experience() {
   // game object state

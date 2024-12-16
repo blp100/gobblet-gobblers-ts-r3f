@@ -9,12 +9,12 @@ type IndicatorArrowProps = {
   [x: string]: any;
 };
 
-const IndicatorArrow = ({
+export default function IndicatorArrow({
   color,
   positionX,
   rotationZ,
   ...otherProps
-}: IndicatorArrowProps) => {
+}: IndicatorArrowProps) {
   const ref = useRef<Mesh>(null);
   useFrame((state, delta) => {
     if (ref.current) {
@@ -35,6 +35,4 @@ const IndicatorArrow = ({
       <meshBasicMaterial color={color} toneMapped={false} />
     </mesh>
   );
-};
-
-export default IndicatorArrow;
+}

@@ -6,9 +6,11 @@ type WinnerTextProps = {
   [x: string]: any;
 };
 
-const WinnerText = (props: WinnerTextProps) => {
-  const { color, text, ...otherProps } = props;
-
+export default function WinnerText({
+  color,
+  text,
+  ...otherProps
+}: WinnerTextProps) {
   return (
     <Center top position={[0, 2.5, 0]} rotation={[0, 0, 0]} {...otherProps}>
       <Text3D font="./fonts/Mansalva_Regular.json">
@@ -17,6 +19,4 @@ const WinnerText = (props: WinnerTextProps) => {
       </Text3D>
     </Center>
   );
-};
-
-export default WinnerText;
+}

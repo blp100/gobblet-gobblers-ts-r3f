@@ -2,7 +2,7 @@ type GroundProps = {
   color: string | number | [r: number, g: number, b: number];
 };
 
-const Grid = ({ color }: GroundProps) => {
+export default function Grid({ color }: GroundProps) {
   return (
     <group>
       <mesh castShadow receiveShadow position={[-0.5, 0.05, 0]}>
@@ -23,6 +23,4 @@ const Grid = ({ color }: GroundProps) => {
       </mesh>
     </group>
   );
-};
-
-export default Grid;
+}
