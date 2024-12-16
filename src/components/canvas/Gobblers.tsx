@@ -22,7 +22,7 @@ type tilePositionType = { tilePosition: [number, number, number] };
 function Gobbler({ size, color, position, ...otherProps }: GobblerProps) {
   const [x, y, z] = position;
   const ref = useRef<Mesh>(null);
-  const { nodes } = useGLTF("/models/cylinder.gltf") as unknown as GLTFResult;
+  const { nodes } = useGLTF("/models/gobbler.glb") as unknown as GLTFResult;
   const activePlayer = useStore((state) => state.activePlayer);
   const activeGobbler = useStore((state) => state.activeGobbler);
   const setActiveGobbler = useStore((state) => state.setActiveGobbler);
@@ -148,4 +148,4 @@ export default function Gobblers() {
   );
 }
 
-useGLTF.preload("/models/cylinder.gltf");
+useGLTF.preload("/models/gobbler.glb");

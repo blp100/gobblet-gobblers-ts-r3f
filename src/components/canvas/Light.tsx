@@ -29,7 +29,7 @@ export default function Light() {
 
   return (
     <>
-      <ambientLight intensity={1.5} />
+      <ambientLight intensity={1.8} />
       <spotLight
         // ref={spotLight1}
         castShadow
