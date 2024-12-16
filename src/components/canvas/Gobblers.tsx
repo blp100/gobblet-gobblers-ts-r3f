@@ -1,9 +1,10 @@
 import { useGLTF } from "@react-three/drei";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import useStore from "@/store/store";
 import { Mesh } from "three";
 import { GLTF } from "three/examples/jsm/Addons.js";
 import { useSpring, animated } from "@react-spring/three";
+import { PLAYER_INFO, SIZES } from "@/constants";
 
 type GobblerProps = {
   size: number;
@@ -18,7 +19,7 @@ type GLTFResult = GLTF & {
 
 type tilePositionType = { tilePosition: [number, number, number] };
 
-const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
+function Gobbler({ size, color, position, ...otherProps }: GobblerProps) {
   const [x, y, z] = position;
   const ref = useRef<Mesh>(null);
   const { nodes } = useGLTF("/models/cylinder.gltf") as unknown as GLTFResult;
@@ -73,7 +74,10 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
         scale={size}
         onClick={(e) => {
           e.stopPropagation();
-          if (e.object.userData.player === activePlayer?.NAME && phase === "playing") {
+          if (
+            e.object.userData.player === activePlayer?.NAME &&
+            phase === "playing"
+          ) {
             setActiveGobbler(e.object);
           }
         }}
@@ -84,8 +88,64 @@ const Gobbler = ({ size, color, position, ...otherProps }: GobblerProps) => {
       </animated.mesh>
     </animated.group>
   );
-};
+}
 
-export default Gobbler;
+export default function Gobblers() {
+  const gobblers = useMemo(() => {
+    const gobblers = [];
+    const sizeKeys = Object.keys(SIZES);
+    for (let player = 0; player < 2; player++) {
+      for (let size = 0; size < 3; size++) {
+        const color =
+          player === 0 ? PLAYER_INFO.PLAYER1.COLOR : PLAYER_INFO.PLAYER2.COLOR;
+        const playerName =
+          player === 0 ? PLAYER_INFO.PLAYER1.NAME : PLAYER_INFO.PLAYER2.NAME;
+        const pos = player === 0 ? -3 : 3;
+        const gobblerSize = SIZES[sizeKeys[size]].VALUE;
+        const z = (size - 1) * 1.2;
+        const y = gobblerSize / 2;
+        const leftName = `player${player}size${size}left`;
+        const rightName = `player${player}size${size}right`;
+
+        gobblers.push({
+          name: leftName,
+          position: [pos - gobblerSize / 2 - 0.1, y, z] as [
+            number,
+            number,
+            number
+          ],
+          size: gobblerSize,
+          color: color,
+          userData: {
+            size: SIZES[sizeKeys[size]],
+            player: playerName,
+          },
+        });
+        gobblers.push({
+          name: rightName,
+          position: [pos + gobblerSize / 2 + 0.1, y, z] as [
+            number,
+            number,
+            number
+          ],
+          size: gobblerSize,
+          color: color,
+          userData: {
+            size: SIZES[sizeKeys[size]],
+            player: playerName,
+          },
+        });
+      }
+    }
+    return gobblers;
+  }, []);
+  return (
+    <>
+      {gobblers.map((props) => (
+        <Gobbler key={props.name} {...props} />
+      ))}
+    </>
+  );
+}
 
 useGLTF.preload("/models/cylinder.gltf");

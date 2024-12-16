@@ -9,16 +9,18 @@ import {
   ToneMapping,
 } from "@react-three/postprocessing";
 import { ToneMappingMode } from "postprocessing";
-import Gobbler from "./Gobbler";
+import Gobbler from "./Gobblers";
 import { PLAYER_INFO, SIZES } from "@/constants";
 import Ground from "./Ground";
 import Grid from "./Grid";
 import Light from "./Light";
 import { useEffect, useMemo } from "react";
-import InterActiveTile from "./InteractiveTile";
+import InterActiveTile from "./InteractiveTiles";
 import useStore from "@/store/store";
 import checkGobbler from "@/lib/check-gobbler";
 import checkWinner from "@/lib/check-winner";
+import Gobblers from "./Gobblers";
+import InteractiveTiles from "./InteractiveTiles";
 
 export default function Experience() {
   // game object state
@@ -86,74 +88,6 @@ export default function Experience() {
     }
   }, [activeGobbler, activePlane, activePlayer, board]);
 
-  // Build gobblers
-  const gobblers = useMemo(() => {
-    const g = [];
-    const sizeKeys = Object.keys(SIZES);
-    for (let player = 0; player < 2; player++) {
-      for (let size = 0; size < 3; size++) {
-        const color =
-          player === 0 ? PLAYER_INFO.PLAYER1.COLOR : PLAYER_INFO.PLAYER2.COLOR;
-        const playerName =
-          player === 0 ? PLAYER_INFO.PLAYER1.NAME : PLAYER_INFO.PLAYER2.NAME;
-        const pos = player === 0 ? -3 : 3;
-        const gobblerSize = SIZES[sizeKeys[size]].VALUE;
-        const z = (size - 1) * 1.2;
-        const y = gobblerSize / 2;
-        const leftName = "player" + player + "size" + size + "left";
-        const rightName = "player" + player + "size" + size + "right";
-        g.push(
-          <Gobbler
-            key={leftName}
-            name={leftName}
-            position={[pos - gobblerSize / 2 - 0.1, y, z]}
-            size={gobblerSize}
-            color={color}
-            userData={{
-              size: SIZES[sizeKeys[size]],
-              player: playerName,
-            }}
-          />
-        );
-        g.push(
-          <Gobbler
-            key={rightName}
-            name={rightName}
-            position={[pos + gobblerSize / 2 + 0.1, y, z]}
-            size={gobblerSize}
-            color={color}
-            userData={{
-              size: SIZES[sizeKeys[size]],
-              player: playerName,
-            }}
-          />
-        );
-      }
-    }
-    return g;
-  }, []);
-
-  // Build Plane
-  const tiles = useMemo(() => {
-    const p = [];
-    for (let i = 1; i <= 3; i++) {
-      for (let j = 1; j <= 3; j++) {
-        const pos = [j - 2, 0.1, i - 2];
-        p.push(
-          <InterActiveTile
-            key={"plane" + i + "" + j}
-            color={0xf9d3b7}
-            position={pos}
-            name={"plane" + i + "" + j}
-            userData={{ key: i + "" + j }}
-            visible={false}
-          />
-        );
-      }
-    }
-    return p;
-  }, []);
-
   return (
     <>
       <color args={["#212123"]} attach="background" />
@@ -165,12 +99,12 @@ export default function Experience() {
       <OrbitControls />
 
       <EffectComposer>
-        <Bloom mipmapBlur intensity={1} luminanceThreshold={1.1} />
+        {/* <Bloom mipmapBlur intensity={1} luminanceThreshold={1.1} /> */}
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       </EffectComposer>
 
-      {gobblers}
-      {tiles}
+      <Gobblers />
+      <InteractiveTiles />
 
       <Ground color={0xf9d3b7} />
       <Grid color={0x967e76} />
@@ -195,7 +129,7 @@ export default function Experience() {
         visible={winner === PLAYER_INFO.PLAYER2}
       />
 
-      <Fireworks visible={!!winner}/>
+      <Fireworks visible={!!winner} />
     </>
   );
 }
