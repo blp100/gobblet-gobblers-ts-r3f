@@ -36,7 +36,6 @@ export default function Experience() {
 
   // game rule
   useEffect(() => {
-    console.log(activeGobbler, activeTile, activePlayer, board);
     if (activeGobbler && activeTile && phase === "playing") {
       const arr = board.get(activeTile.userData.key) || [];
       const newBoard = new Map(board); // create a new board for React state
@@ -60,6 +59,7 @@ export default function Experience() {
         if (!tempWinner) {
           tempWinner = checkWinner(newBoard);
         }
+        moveGobbler();
         if (tempWinner) {
           setWinner(
             tempWinner === PLAYER_INFO.PLAYER1.NAME
@@ -67,17 +67,6 @@ export default function Experience() {
               : PLAYER_INFO.PLAYER2
           );
           end();
-        }
-
-        moveGobbler();
-        // setActiveGobbler(null);
-        // setActiveTile(null);
-        // setPlayer(
-        //   activePlayer === PLAYER_INFO.PLAYER1
-        //     ? PLAYER_INFO.PLAYER2
-        //     : PLAYER_INFO.PLAYER1
-        // );
-        if (tempWinner) {
           setPlayer(null);
         }
         setBoard(newBoard);
