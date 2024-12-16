@@ -37,7 +37,7 @@ export default function InteractiveTiles() {
           color: 0xf9d3b7,
           position: pos,
           name: `plane${i}${j}`,
-          userData: { key: `plane${i}${j}` },
+          userData: { key: `${i}${j}` },
           visible: false,
         });
       }
