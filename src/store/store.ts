@@ -17,8 +17,8 @@ interface GameState {
   activeGobbler: Object3D | null;
   setActiveGobbler: (activeGobbler: Object3D | null) => void;
   unsetActiveGobbler: () => void;
-  activePlane: Object3D | null;
-  setActivePlane: (activePlane: Object3D | null) => void;
+  activeTile: Object3D | null;
+  setActiveTile: (activeTile: Object3D | null) => void;
   winner: typeof PLAYER_INFO.PLAYER1 | null;
   setWinner: (winner: typeof PLAYER_INFO.PLAYER1) => void;
   phase: "ready" | "playing" | "animated" | "ended";
@@ -37,8 +37,8 @@ const useStore = create<GameState>((set, get) => ({
   activeGobbler: null,
   setActiveGobbler: (activeGobbler) => set(() => ({ activeGobbler })),
   unsetActiveGobbler: () => set(() => ({ activeGobbler: null })),
-  activePlane: null,
-  setActivePlane: (activePlane) => set(() => ({ activePlane })),
+  activeTile: null,
+  setActiveTile: (activeTile) => set(() => ({ activeTile })),
   winner: null,
   setWinner: (winner) => set(() => ({ winner })),
   /**
@@ -52,7 +52,7 @@ const useStore = create<GameState>((set, get) => ({
           phase: "playing",
           board: initialMap,
           activeGobbler: null,
-          activePlane: null,
+          activeTile: null,
           winner: null,
         };
       }
@@ -73,7 +73,7 @@ const useStore = create<GameState>((set, get) => ({
         return {
           phase: "playing",
           activeGobbler: null,
-          activePlane: null,
+          activeTile: null,
           activePlayer:
             state.activePlayer === PLAYER_INFO.PLAYER1
               ? PLAYER_INFO.PLAYER2

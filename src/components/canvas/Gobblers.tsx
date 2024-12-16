@@ -26,15 +26,15 @@ function Gobbler({ size, color, position, ...otherProps }: GobblerProps) {
   const activePlayer = useStore((state) => state.activePlayer);
   const activeGobbler = useStore((state) => state.activeGobbler);
   const setActiveGobbler = useStore((state) => state.setActiveGobbler);
-  const activePlane = useStore((state) => state.activePlane);
+  const activeTile = useStore((state) => state.activeTile);
   const phase = useStore((state) => state.phase);
   const nextStep = useStore((state) => state.nextStep);
 
   const isActive = activeGobbler === ref.current && ref.current !== null;
 
-  const tile = ref.current ? ref.current.userData.plane : null;
+  const tile = ref.current ? ref.current.userData.tile : null;
 
-  const isActiveTile = activePlane === tile && activePlane !== null;
+  const isActiveTile = activeTile === tile && activeTile !== null;
 
   const { positionY } = useSpring({ positionY: isActive ? 1 : 0 });
   const { tilePosition } = useSpring<tilePositionType>({

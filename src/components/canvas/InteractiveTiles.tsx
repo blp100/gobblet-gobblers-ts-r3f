@@ -7,7 +7,7 @@ type InterActiveTileProps = {
 };
 
 function InterActiveTile({ color, ...otherProps }: InterActiveTileProps) {
-  const setActivePlane = useStore((state) => state.setActivePlane);
+  const setActiveTile = useStore((state) => state.setActiveTile);
   const activeGobbler = useStore((state) => state.activeGobbler);
   const phase = useStore((state) => state.phase);
 
@@ -16,7 +16,7 @@ function InterActiveTile({ color, ...otherProps }: InterActiveTileProps) {
       rotation={[-Math.PI / 2, 0, 0]}
       onClick={(e) => {
         e.stopPropagation();
-        if (activeGobbler && phase === "playing") setActivePlane(e.object);
+        if (activeGobbler && phase === "playing") setActiveTile(e.object);
       }}
       {...otherProps}
     >
@@ -27,7 +27,7 @@ function InterActiveTile({ color, ...otherProps }: InterActiveTileProps) {
 }
 
 export default function InteractiveTiles() {
-  // Build Plane
+  // Build Tile
   const tiles = useMemo(() => {
     const tiles = [];
     for (let i = 1; i <= 3; i++) {
@@ -36,7 +36,7 @@ export default function InteractiveTiles() {
         tiles.push({
           color: 0xf9d3b7,
           position: pos,
-          name: `plane${i}${j}`,
+          name: `tile${i}${j}`,
           userData: { key: `${i}${j}` },
           visible: false,
         });
