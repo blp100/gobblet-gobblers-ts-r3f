@@ -29,7 +29,7 @@ export default function Light() {
 
   return (
     <>
-      <ambientLight intensity={1.8} />
+      <ambientLight intensity={2.2} />
       <spotLight
         // ref={spotLight1}
         castShadow
@@ -52,7 +52,7 @@ export default function Light() {
         position={[-6, 12, 12]}
         angle={0.3}
         penumbra={0.5}
-        intensity={0.9}
+        intensity={1.5}
         decay={0.2}
       >
         <perspectiveCamera
