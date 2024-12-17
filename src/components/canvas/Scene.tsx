@@ -2,6 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
+import GameUI from "../dom/GameUI";
 
 export default function Scene() {
   return (
@@ -17,6 +18,7 @@ export default function Scene() {
       >
         <Experience />
       </Canvas>
+      <GameUI />
     </>
   );
 }

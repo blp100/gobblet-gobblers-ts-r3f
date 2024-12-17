@@ -11,6 +11,7 @@ for (let i = 1; i <= 3; i++) {
 
 interface GameState {
   board: Map<string, Array<Object3D>>;
+  boardSeed: number;
   setBoard: (board: Map<string, Array<Object3D>>) => void;
   activePlayer: typeof PLAYER_INFO.PLAYER1 | null;
   setPlayer: (activePlayer: typeof PLAYER_INFO.PLAYER1 | null) => void;
@@ -31,6 +32,7 @@ interface GameState {
 
 const useStore = create<GameState>((set, get) => ({
   board: initialMap,
+  boardSeed: 1,
   setBoard: (board) => set(() => ({ board })),
   activePlayer: PLAYER_INFO.PLAYER1,
   setPlayer: (activePlayer) => set(() => ({ activePlayer })),
@@ -44,7 +46,7 @@ const useStore = create<GameState>((set, get) => ({
   /**
    * Phases
    */
-  phase: "playing",
+  phase: "ready",
   start: () => {
     set((state) => {
       if (state.phase === "ready") {
@@ -86,15 +88,18 @@ const useStore = create<GameState>((set, get) => ({
   restart: () => {
     set((state) => {
       if (state.phase === "playing" || state.phase === "ended") {
-        return { phase: "ready" };
+        return { phase: "ready", boardSeed: Math.random() };
       }
       return {};
     });
   },
   end: () => {
     set((state) => {
-      if (state.phase === "playing") {
-        return { phase: "ended" };
+      if (state.phase === "playing" || state.phase === "animated") {
+        return {
+          phase: "ended",
+          activePlayer: null,
+        };
       }
       return {};
     });
