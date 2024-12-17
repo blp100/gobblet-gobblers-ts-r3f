@@ -23,7 +23,6 @@ import checkWinner from "@/lib/check-winner";
 export default function Experience() {
   // game object state
   const activePlayer = useStore((state) => state.activePlayer);
-  const setPlayer = useStore((state) => state.setPlayer);
   const activeGobbler = useStore((state) => state.activeGobbler);
   const activeTile = useStore((state) => state.activeTile);
   const board = useStore((state) => state.board);
@@ -67,7 +66,6 @@ export default function Experience() {
               : PLAYER_INFO.PLAYER2
           );
           end();
-          setPlayer(null);
         }
         setBoard(newBoard);
       }

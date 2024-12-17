@@ -91,6 +91,8 @@ function Gobbler({ size, color, position, ...otherProps }: GobblerProps) {
 }
 
 export default function Gobblers() {
+  const boardSeed = useStore((state)=>state.boardSeed)
+
   const gobblers = useMemo(() => {
     const gobblers = [];
     const sizeKeys = Object.keys(SIZES);
@@ -138,7 +140,7 @@ export default function Gobblers() {
       }
     }
     return gobblers;
-  }, []);
+  }, [boardSeed]);
   return (
     <>
       {gobblers.map((props) => (
