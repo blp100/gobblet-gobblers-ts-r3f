@@ -86,7 +86,7 @@ export default function Experience() {
 
       <OrbitControls />
 
-      <EffectComposer>
+      <EffectComposer multisampling={0}>
         <Bloom mipmapBlur intensity={1} luminanceThreshold={1.1} />
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       </EffectComposer>
