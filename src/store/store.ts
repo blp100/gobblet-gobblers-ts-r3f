@@ -34,7 +34,7 @@ const useStore = create<GameState>((set, get) => ({
   board: initialMap,
   boardSeed: 1,
   setBoard: (board) => set(() => ({ board })),
-  activePlayer: PLAYER_INFO.PLAYER1,
+  activePlayer: null,
   setPlayer: (activePlayer) => set(() => ({ activePlayer })),
   activeGobbler: null,
   setActiveGobbler: (activeGobbler) => set(() => ({ activeGobbler })),

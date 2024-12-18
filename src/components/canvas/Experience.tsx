@@ -87,7 +87,7 @@ export default function Experience() {
       <OrbitControls />
 
       <EffectComposer>
-        {/* <Bloom mipmapBlur intensity={1} luminanceThreshold={1.1} /> */}
+        <Bloom mipmapBlur intensity={1} luminanceThreshold={1.1} />
         <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
       </EffectComposer>
 
@@ -97,9 +97,16 @@ export default function Experience() {
       <Ground color={0xf9d3b7} />
       <Grid color={0x967e76} />
       <IndicatorArrow
-        color={[0.37, 4, 10]}
+        color={[10,0.9, 0.11]}
         positionX={-1}
         rotationZ={Math.PI / 2}
+        visible={activePlayer === PLAYER_INFO.PLAYER1}
+      />
+      <IndicatorArrow
+        color={[0.37, 0.9, 10]}
+        positionX={1}
+        rotationZ={-Math.PI / 2}
+        visible={activePlayer === PLAYER_INFO.PLAYER2}
       />
 
       <WinnerText
