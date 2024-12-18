@@ -60,7 +60,6 @@ function Gobbler({ size, color, position, ...otherProps }: GobblerProps) {
       if (isActive && isActiveTile && finished) {
         nextStep();
       }
-      // console.log(tile);
     },
   });
 

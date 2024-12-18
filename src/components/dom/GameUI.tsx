@@ -8,8 +8,6 @@ export default function GameUI() {
   const start = useStore((state) => state.start);
   const restart = useStore((state) => state.restart);
 
-  console.log(phase);
-
   return (
     <>
       <div className={styles.interface}>

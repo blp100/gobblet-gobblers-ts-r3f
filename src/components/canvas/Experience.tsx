@@ -35,42 +35,46 @@ export default function Experience() {
 
   // game rule
   useEffect(() => {
-    if (activeGobbler && activeTile && phase === "playing") {
+    if (activeGobbler && activeTile) {
       const arr = board.get(activeTile.userData.key) || [];
       const newBoard = new Map(board); // create a new board for React state
-      let tempWinner = null;
+
       if (checkGobbler(arr, activeGobbler)) {
+        // Check if the gobbler is on the board. If the answer is yes, remove it.
         if (activeGobbler.userData.tile) {
-          const TileKey = activeGobbler.userData.tile.userData.key;
-          const tempArr = [...board.get(TileKey)!];
+          const tileKey = activeGobbler.userData.tile.userData.key;
+          const tempArr = [...board.get(tileKey)!];
           const prevIndex = tempArr.indexOf(activeGobbler);
           tempArr.splice(prevIndex, 1);
-          newBoard.set(TileKey, tempArr); // remove previous gobbler
-
-          if (!tempWinner) {
-            tempWinner = checkWinner(newBoard);
-          }
+          newBoard.set(tileKey, tempArr);
         }
 
+        // add gobbler in new position
         activeGobbler.userData.tile = activeTile;
         const newArr = [...arr, activeGobbler];
-        newBoard.set(activeTile.userData.key, newArr); // add gobbler in new position
-        if (!tempWinner) {
-          tempWinner = checkWinner(newBoard);
-        }
+        newBoard.set(activeTile.userData.key, newArr);
+
+        // update the state
         moveGobbler();
-        if (tempWinner) {
-          setWinner(
-            tempWinner === PLAYER_INFO.PLAYER1.NAME
-              ? PLAYER_INFO.PLAYER1
-              : PLAYER_INFO.PLAYER2
-          );
-          end();
-        }
         setBoard(newBoard);
       }
     }
   }, [activeGobbler, activeTile, activePlayer, board]);
+
+  // game rule, check winner
+  useEffect(() => {
+    if (phase === "playing") {
+      const winner = checkWinner(board);
+      if (winner) {
+        setWinner(
+          winner === PLAYER_INFO.PLAYER1.NAME
+            ? PLAYER_INFO.PLAYER1
+            : PLAYER_INFO.PLAYER2
+        );
+        end();
+      }
+    }
+  }, [board, phase]);
 
   return (
     <>
