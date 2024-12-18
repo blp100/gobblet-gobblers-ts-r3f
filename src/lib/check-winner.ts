@@ -1,10 +1,10 @@
-import { BufferGeometry, Material, Mesh, NormalBufferAttributes, Object3D, Object3DEventMap } from "three";
+import { Object3D, Object3DEventMap } from "three";
 import { PLAYER_INFO } from "../constants";
 
 /**
  * Check who is winner
- * @param board 
- * @returns 
+ * @param board
+ * @returns
  */
 const checkWinner = (board: Map<string, Object3D<Object3DEventMap>[]>) => {
   const player1Name = PLAYER_INFO.PLAYER1.NAME;
