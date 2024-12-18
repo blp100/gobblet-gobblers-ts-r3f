@@ -47,6 +47,15 @@ export default function Experience() {
           const prevIndex = tempArr.indexOf(activeGobbler);
           tempArr.splice(prevIndex, 1);
           newBoard.set(tileKey, tempArr);
+
+          const newWinner = checkWinner(newBoard);
+          if (newWinner) {
+            setWinner(
+              newWinner === PLAYER_INFO.PLAYER1.NAME
+                ? PLAYER_INFO.PLAYER1
+                : PLAYER_INFO.PLAYER2
+            );
+          }
         }
 
         // add gobbler in new position
@@ -64,17 +73,17 @@ export default function Experience() {
   // game rule, check winner
   useEffect(() => {
     if (phase === "playing") {
-      const winner = checkWinner(board);
-      if (winner) {
+      const newWinner = winner ? winner : checkWinner(board);
+      if (newWinner) {
         setWinner(
-          winner === PLAYER_INFO.PLAYER1.NAME
+          newWinner === PLAYER_INFO.PLAYER1.NAME
             ? PLAYER_INFO.PLAYER1
             : PLAYER_INFO.PLAYER2
         );
         end();
       }
     }
-  }, [board, phase]);
+  }, [winner, board, phase]);
 
   return (
     <>
@@ -97,7 +106,7 @@ export default function Experience() {
       <Ground color={0xf9d3b7} />
       <Grid color={0x967e76} />
       <IndicatorArrow
-        color={[10,0.9, 0.11]}
+        color={[10, 0.9, 0.11]}
         positionX={-1}
         rotationZ={Math.PI / 2}
         visible={activePlayer === PLAYER_INFO.PLAYER1}
