@@ -12,11 +12,13 @@ export default function WinnerText({
   ...otherProps
 }: WinnerTextProps) {
   return (
-    <Center top position={[0, 2.5, 0]} rotation={[0, 0, 0]} {...otherProps}>
-      <Text3D font="./fonts/Mansalva_Regular.json">
-        {text}
-        <meshStandardMaterial color={color} />
-      </Text3D>
-    </Center>
+    <Float speed={3}>
+      <Center top position={[0, 2.5, 0]} rotation={[0, 0, 0]} {...otherProps}>
+        <Text3D font="./fonts/Mansalva_Regular.json">
+          {text}
+          <meshStandardMaterial color={color} />
+        </Text3D>
+      </Center>
+    </Float>
   );
 }
