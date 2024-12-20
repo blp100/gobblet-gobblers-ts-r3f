@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { OrbitControls } from "@react-three/drei";
+import { useEffect, useRef } from "react";
 import {
   Bloom,
   EffectComposer,
@@ -19,6 +18,7 @@ import InteractiveTiles from "./InteractiveTiles";
 import { PLAYER_INFO } from "@/constants";
 import checkGobbler from "@/lib/check-gobbler";
 import checkWinner from "@/lib/check-winner";
+import CameraControls from "./CameraControls";
 
 export default function Experience() {
   // game object state
@@ -93,7 +93,7 @@ export default function Experience() {
 
       <Light />
 
-      <OrbitControls />
+      <CameraControls />
 
       <EffectComposer multisampling={0}>
         <Bloom mipmapBlur intensity={1} luminanceThreshold={1.1} />
